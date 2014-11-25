@@ -1,8 +1,7 @@
 <?php
 include_once("../includes/header.php");
 
-//$_SESSION['has_customer'] = "1";
-//$_SESSION['customer_name'] = "John";
+
 ?>
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -14,8 +13,8 @@ include_once("../includes/header.php");
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#info-tab" data-toggle="tab">1. Select Customer <i class="fa"></i></a></li>
                         <li><a href="#vehicle-tab" data-toggle="tab">2. Pick Vehicle <i class="fa"></i></a></li>
-                        <li><a href="#approval-tab" data-toggle="tab">3. Create Deal <i class="fa"></i></a></li>
-                        <li><a href="#deal-tab" data-toggle="tab">4. Send Deal <i class="fa"></i></a></li>
+                        <li><a href="#tradein-tab" data-toggle="tab">3. Add Trade In <i class="fa"></i></a></li>
+                        <li><a href="#approval-tab" data-toggle="tab">4. Create Deal <i class="fa"></i></a></li>
                     </ul>
                     <form id="accountForm" method="post" class="form-horizontal">
                         <div class="tab-content">
@@ -94,6 +93,7 @@ include_once("../includes/header.php");
 						                                            <th>Year</th>
 						                                            <th>Color</th>
 						                                            <th>Mileage</th>
+                                                                    <th>Price</th>
 						                                        </tr>
 						                                    </thead>
                                     						<tbody>
@@ -111,6 +111,7 @@ include_once("../includes/header.php");
 																	    echo "<td>".$row['year']."</td>";
 																	    echo "<td>".$row['color']."</td>";
 																	    echo "<td>".$row['mileage']."</td>";
+                                                                        echo "<td>$".number_format($row['price'])."</td>";
 																	    echo "</tr>"; 
 																	}
 															    ?>
@@ -127,15 +128,80 @@ include_once("../includes/header.php");
 					                <!-- /row -->
                                 </div>
                             </div>
-
-                            <div class="tab-pane" id="approval-tab" >
+                            <div class="tab-pane" id="tradein-tab" >
                                 <div class="form-group">
-                                    Insert Approval Processing -- Manager only?
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Select Vehicle
+                                                </div>
+                                                <!-- /.panel-heading -->
+                                                <div class="panel-body">
+                                                    <div style="overflow-x: hidden;" class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover" id="dataTables2">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Select</th>
+                                                                    <th>Customer</th>
+                                                                    <th>VIN</th>
+                                                                    <th>Make</th>
+                                                                    <th>Model</th>
+                                                                    <th>Year</th>
+                                                                    <th>Color</th>
+                                                                    <th>Mileage</th>
+                                                                    <th>Offer</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                    // trade price = appraised value of car
+                                                                    $query = ("select * from tradeins");
+                                                                    $result = $conn -> query($query);
+                                                                    $counter = $result -> rowCount();
+
+                                                                    foreach ($conn->query($query) as $row) {
+                                                                        echo "<tr>";
+                                                                        echo "<td><input type='radio' name='id' value=".$row['vin']."</td>";
+                                                                        echo "<td>".$row['customer']."</td>";
+                                                                        echo "<td>".$row['vin']."</td>";
+                                                                        echo "<td>".$row['make']."</td>";
+                                                                        echo "<td>".$row['model']."</td>";
+                                                                        echo "<td>".$row['year']."</td>";
+                                                                        echo "<td>".$row['color']."</td>";
+                                                                        echo "<td>".$row['mileage']."</td>";
+                                                                        echo "<td>$".number_format($row['price'])."</td>";
+                                                                        echo "</tr>"; 
+                                                                    }
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- /.panel-body -->
+                                            </div>
+                                            <!-- /.panel -->
+                                        </div>
+                                        <!-- /.col-lg-12 -->
+                                    </div>
+                                    <!-- /row -->
                                 </div>
                             </div>
-                            <div class="tab-pane" id="deal-tab" >
+                            <div class="tab-pane" id="approval-tab" >
                                 <div class="form-group">
-                                    Submit Selections for Manager Approval?
+                                    <div class="col-lg-6">
+                                        <div class="form-group control-group" style="padding-top: 30px;padding-left: 20px;">
+                                            <div class="controls">
+                                            <label>Deal Notes</label>
+                                            <textarea name="Description" cols=60 class="form-control" rows="9" id="comment" required><?php if(isset($_POST['Notes'])){echo $_POST['Notes']; }?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4" style="padding-top: 10px;padding-left: 20px;">
+                                                <button class="btn btn-primary btn-block" type="submit">Submit Deal</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,24 +214,14 @@ include_once("../includes/header.php");
         <!-- /#page-wrapper -->
 
 <?php include_once("../includes/footer.php") ?>
-<!-- DataTables JavaScript -->
-<script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
 <script>
 $(document).ready(function() {
     $('#dataTables1').dataTable();
     $('#dataTables2').dataTable();
-    $('#customerModal').bind('show', function () {
-        document.getElementById ("xlInput").value = document.title;
-    });
 
     $('#info-tab').addClass('active');
 });
-
-function closeDialog () {
-    $('#customerModal').modal('hide'); 
-    };
 
 function okClicked () {
     document.title = document.getElementById ("xlInput").value;
