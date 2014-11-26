@@ -1,8 +1,5 @@
 <?php
 include_once("../includes/header.php");
-
-//$_SESSION['has_customer'] = "1";
-//$_SESSION['customer_name'] = "John";
 ?>
         <!-- Page Content -->
         <link href="/css/custom.css" rel="stylesheet">
@@ -33,13 +30,14 @@ include_once("../includes/header.php");
 				                                            <th>Last Name</th>
 				                                            <th>City</th>
 				                                            <th>State</th>
+				                                       		<th>Zip</th>
 				                                            <th>Phone</th>
 				                                            <th>Email</th>
 				                                        </tr>
 				                                    </thead>
                             						<tbody>
                                 						<?php
-														    $query = ("select * from customer");
+														    $query = ("select * from customer where salesperson='".$_SESSION['empid']."'");
 														    $result = $conn -> query($query);
 															//$counter = $result -> rowCount();
 														    foreach ($conn->query($query) as $row) {
@@ -49,6 +47,7 @@ include_once("../includes/header.php");
 															    echo "<td>".$row['lname']."</td>";
 															    echo "<td>".$row['city']."</td>";
 															    echo "<td>".$row['state']."</td>";
+															    echo "<td>".$row['zip']."</td>";
 															    echo "<td>".$row['phone']."</td>";
 															    echo "<td>".$row['email']."</td>";
 															    echo "</tr>"; 

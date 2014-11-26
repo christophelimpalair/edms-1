@@ -41,7 +41,7 @@ include_once("../includes/header.php");
 				                                    </thead>
                             						<tbody>
                                 						<?php
-														    $query = ("select distinct f.id as finid, fname, lname, city, state, phone, email, status from finance f, customer c where f.status is not null and f.customer_id = c.id");
+														    $query = ("select distinct f.id as finid, fname, lname, city, state, phone, email, status from finance f, customer c where f.status='pending' and f.customer_id = c.id");
 														    $result = $conn -> query($query);
 															$counter = $result -> rowCount();
 

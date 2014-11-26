@@ -74,23 +74,21 @@ function login($email, $password, $mysqli) {
                     // XSS protection as we might print this value
                     $user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
-
                     // XSS protection as we might print this value
                     $empid = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $empid);
-
                     $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
 
                     // Login successful.
                     $_SESSION['role'] = $role;
                     $_SESSION['userid'] = $user_id;
                     $_SESSION['user'] = $name;
-                    $_SESSION['empid'] = $employee_id;
+                    $_SESSION['empid'] = $empid;
                     return true;
                 } else {
                     // Password is not correct 
                     // We record this attempt in the database 
                     $now = time();
-                    if (!$mysqli->query("INSERT INTO login_attempts(user_id, time) 
+                    if (!$mysqli->query("INSERT INTO login_attempts (user_id, time) 
                                     VALUES ('$user_id', '$now')")) {
                         header("Location: ../error.php?err=Database error: login_attempts");
                         exit();

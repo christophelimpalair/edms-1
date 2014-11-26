@@ -1,14 +1,13 @@
 <?php
 include_once("../includes/header.php");
 
-// test variable - simulate id 1
-$_SESSION['salesperson'] = "1";
-
 if (!empty($_POST['fname'])) {
     // build sql insert statement from posted values
     $sql1 = "INSERT INTO Customer (fname, lname, address, city, state, zip, email, phone, salesperson, notes) VALUES 
     ('".$_POST['fname']."','".$_POST['lname']."','".$_POST['addr']."','".$_POST['city']."','".$_POST['state']."',".$_POST['zip'].",
-    '".$_POST['email']."','".$_POST['phone']."','".$_SESSION['salesperson']."','".$_POST['notes']."')";
+    '".$_POST['email']."','".$_POST['phone']."','".$_SESSION['empid']."','".$_POST['notes']."')";
+
+echo $sql1;
     try {
         $query = "Select count(*) from customer where fname='".$_POST['fname']."' and lname='".$_POST['lname']."' and address='".$_POST['addr']."' and city='".$_POST['city']."'";
         $result = $conn->prepare($query); 

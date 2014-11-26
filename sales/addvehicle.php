@@ -8,7 +8,7 @@ if (!empty($_POST['VIN'])) {
     '".$_POST['Description']."','".$_POST['Cost']."','".$_POST['Price']."','".date("Y-m-d")."')";
 
     try {
-        $query = "Select count(*) from vehicle where id=".$_POST['VIN'];
+        $query = "Select count(*) from vehicle where id='".$_POST['VIN']."'";
         $result = $conn->prepare($query); 
         $result->execute(); 
         $counter = $result->fetchColumn();

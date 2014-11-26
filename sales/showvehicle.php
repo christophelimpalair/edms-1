@@ -125,7 +125,7 @@ if (!empty($_GET['VIN'])) {
                                                 $result = $conn -> query($query);
                                                 foreach ($conn->query($query) as $row) {
                                                     $image = $row['image'];
-                                                    echo '<a href="javascript:;" class="image-popup" data-large-image="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'" data-width="640" data-height="480"><img width="50px" style="padding:2px;" height="auto" src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"/></a>';
+                                                    echo '<a data-effect="mfp-zoom-in" class="test-popup-link" data-mfp-src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"><img width="50px" style="padding:2px;" height="auto" src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"/></a>';
                                                 } ?>
                                                 <div>&nbsp;</div>
                                                 <div class="form-group control-group" >
@@ -156,7 +156,3 @@ if (!empty($_GET['VIN'])) {
         </div>
         <!-- /#page-wrapper -->
 <?php include_once("../includes/footer.php") ?>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
-<script type="text/javascript" src="../js/validate.js"></script>

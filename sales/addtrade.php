@@ -3,12 +3,12 @@ include_once("../includes/header.php");
 
 if (!empty($_POST['VIN'])) {
     // build sql insert statement from posted values
-    $sql1 = "INSERT INTO Vehicle (id, make, model, year, mileage, color, description, cost, price, date_entered) VALUES 
+    $sql1 = "INSERT INTO Vehicle (id, make, model, year, mileage, color, description, cost, price, date_entered, customer_id) VALUES 
     ('".$_POST['VIN']."','".$_POST['Make']."','".$_POST['Model']."',".$_POST['Year'].",".$_POST['Mileage'].",'".$_POST['Color']."',
-    '".$_POST['Description']."','".$_POST['Cost']."','".$_POST['Price']."','".date("Y-m-d")."')";
+        'trade','".$_POST['Cost']."','".$_POST['Price']."','".date("Y-m-d")."','".$_POST['CustomerID']."')";
 
     try {
-        $query = "Select count(*) from vehicle where id=".$_POST['VIN'];
+        $query = "Select count(*) from vehicle where id='".$_POST['VIN']."'";
         $result = $conn->prepare($query); 
         $result->execute(); 
         $counter = $result->fetchColumn();
@@ -16,7 +16,7 @@ if (!empty($_POST['VIN'])) {
         if ($counter > 0) {
             echo '<div style="text-align: center;" class="alert-error alert-block">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo 'Error: Vehicle has already been added to the system.';
+            echo 'Error: Vehicle is already in the system.';
             echo '</div>';
         } else {
                 // execute insert
@@ -39,7 +39,7 @@ if (!empty($_POST['VIN'])) {
                             $sql2 = "INSERT INTO VehiclePhotos (vin, image) VALUES ('".$_POST['VIN']."','$data')";
                             $conn->exec($sql2);
                         }
-                        // Create the query and insert
+                        // Create the query and insert vehicle data
                         // into our database.
                         $conn->exec($sql1);
                     }
@@ -50,7 +50,7 @@ if (!empty($_POST['VIN'])) {
                     // Print results
                     echo '<div style="text-align: center;" class="alert-success alert-block">';
                     echo '<a class="close" data-dismiss="alert">×</a>';
-                    echo 'Success: Vehicle was added successfully!';
+                    echo 'Success: Vehicle trade was added successfully!';
                     echo '</div>';
 
                     // clear post values so we don't resubmit
@@ -72,7 +72,7 @@ if (!empty($_POST['VIN'])) {
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Add Vehicle</h1>
+                    <h1 class="page-header">Add Vehicle Trade-in</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -83,7 +83,7 @@ if (!empty($_POST['VIN'])) {
                 <form id="accountForm" method="post" enctype="multipart/form-data">
                     <div class="panel panel-default">
                         <div class="panel-heading">                                            
-                            New Vehicle Information
+                            New Vehicle Trade-in Information
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -129,13 +129,13 @@ if (!empty($_POST['VIN'])) {
                                                     </div>
                                                 </div>
                                                 <div class="form-group control-group">
-                                                    <label>Sales Cost</label>
+                                                    <label>Appraised Value</label>
                                                     <div class="controls">
                                                     <input placeholder="19500" type="number" pattern="^[0-9]+$" title="Can only contain numbers" <?php if(isset($_POST['Cost'])){echo 'value="'.$_POST['Cost'].'"'; }?> class="form-control" name="Cost" required/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group control-group">
-                                                    <label>Sales Price</label>
+                                                    <label>Estimated Resale</label>
                                                     <div class="controls">
                                                     <input placeholder="21500" type="number" pattern="^[0-9]+$" title="Can only contain numbers" <?php if(isset($_POST['Price'])){echo 'value="'.$_POST['Price'].'"'; }?> class="form-control" name="Price" required/>
                                                     </div>
@@ -148,11 +148,57 @@ if (!empty($_POST['VIN'])) {
                                                 </div>
                                                 <div class="form-group control-group" >
                                                     <div class="controls">
-                                                    <label>Description</label>
+                                                    <label>Vehicle Condition Notes</label>
                                                     <textarea name="Description" cols=60 class="form-control" rows="9" id="comment" required><?php if(isset($_POST['Description'])){echo $_POST['Description']; }?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
+                                                                        <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Customer Information
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div style="overflow-x: hidden;" class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" id="prospects">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style='text-align: center;'>Select</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>City</th>
+                                                            <th style='text-align: center;'>State</th>
+                                                            <th style='text-align: center;'>Zip</th>
+                                                            <th style='text-align: center;'>Phone</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            $query = ("select * from customer");
+                                                            $result = $conn -> query($query);
+                                                            //$counter = $result -> rowCount();
+                                                            foreach ($conn->query($query) as $row) {
+                                                                echo "<tr>";
+                                                                echo "<td style='text-align: center;'><input type='radio' name='CustomerID' value=".$row['id']."</td>";
+                                                                echo "<td>".$row['fname']."</td>";
+                                                                echo "<td>".$row['lname']."</td>";
+                                                                echo "<td>".$row['city']."</td>";
+                                                                echo "<td style='text-align: center;'>".$row['state']."</td>";
+                                                                echo "<td style='text-align: center;'>".$row['zip']."</td>";
+                                                                echo "<td style='text-align: center;'>".$row['phone']."</td>";
+                                                                echo "</tr>"; 
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-12 -->
                                             <!-- /.col-lg-6 (nested) -->
                                         </div>
                                         <div class="row">

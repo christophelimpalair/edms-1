@@ -6,8 +6,8 @@ include_once '../includes/functions.php';
 // startup session variables and check login
 sec_session_start();
 
-if (login_check($mysqli) == false) {
-	//header('Location: index.php');
+if (!login_check($mysqli)) {
+	header('Location: /index.php');
 }
 
 ?>
@@ -58,7 +58,7 @@ if (login_check($mysqli) == false) {
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                <li class="dropdown" style="visibility: hidden">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -109,7 +109,7 @@ if (login_check($mysqli) == false) {
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <li class="dropdown" style="visibility: hidden">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -175,8 +175,6 @@ if (login_check($mysqli) == false) {
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> <?php if (isset($_SESSION['user'])) { echo $_SESSION['user']; } else { echo 'User Profile'; } ?></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="../includes/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -279,6 +277,9 @@ if (login_check($mysqli) == false) {
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/sales/addcustomer.php">Add Customer</a>
+                                </li>
+                               <li>
+                                    <a href="/sales/addtrade.php">Add Trade-in</a>
                                 </li>
                                 <li>
                                     <a href="/sales/addvehicle.php">Add Vehicle</a>

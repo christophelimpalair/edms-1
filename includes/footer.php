@@ -4,6 +4,7 @@
     <!-- jQuery -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.bsAlerts.min.js"></script>
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 
@@ -12,6 +13,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/sb-admin-2.js"></script>
+
+    <!-- Custom Lightbox JavaScript -->
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/lightboxeffect.js"></script>
 
     <!-- Validator Scripts -->
     <script type="text/javascript" src="../js/bootstrapValidator.min.js"></script>
