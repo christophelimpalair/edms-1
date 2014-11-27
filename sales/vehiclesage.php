@@ -85,22 +85,9 @@ include_once("../includes/header.php");
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
-
-<!-- #modal-window -->
-<div id="windowTitleDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="windowTitleLabel" aria-hidden="true">
-	<div class="modal-header">
-		<a href="#" class="close" data-dismiss="modal">&times;</a>
-		<h3>Please enter a new title for this window.</h3>
-	</div>
-	<div class="modal-body">
-		<div class="divDialogElements">
-			<input class="xlarge" id="xlInput" name="xlInput" type="text" />
-		</div>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn" onclick="closeDialog ();">Cancel</a>
-		<a href="#" class="btn btn-primary" onclick="okClicked ();">OK</a>
-	</div>
-</div>
-
 <?php include_once("../includes/footer.php") ?>
+<script>
+$(document).ready(function() {
+document.getElementById('reportsnav').click();
+});
+</script>

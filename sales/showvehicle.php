@@ -125,7 +125,7 @@ if (!empty($_GET['VIN'])) {
                                                 $result = $conn -> query($query);
                                                 foreach ($conn->query($query) as $row) {
                                                     $image = $row['image'];
-                                                    echo '<a data-effect="mfp-zoom-in" class="test-popup-link" data-mfp-src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"><img width="50px" style="padding:2px;" height="auto" src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"/></a>';
+                                                    echo '<a href="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'" data-title="'.$Year.' '.$Make.' '.$Model.'" data-toggle="lightbox"><img width="50px" style="padding:2px;" height="auto" src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"/></a>';
                                                 } ?>
                                                 <div>&nbsp;</div>
                                                 <div class="form-group control-group" >
@@ -156,3 +156,12 @@ if (!empty($_GET['VIN'])) {
         </div>
         <!-- /#page-wrapper -->
 <?php include_once("../includes/footer.php") ?>
+<script>
+$(document).ready(function() {
+document.getElementById('salesnav').click();
+});
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+}); 
+</script>

@@ -7,40 +7,13 @@
 body {
     background-color: #fff;
 }
-html {
-  box-sizing: border-box;
+.panel-body {
+    background: #ecf0f1;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-.large-image-bg { 
-  background-color: #333; 
-  filter: alpha(opacity=70); 
-  left: 0; 
-  opacity: 0.7; 
-  position: fixed; 
-  top: 0; 
-  width: 100%; 
-  z-index: 1000; 
-} 
-.large-image-wrapper { 
-  background-color: white; 
-  border: 3px solid #444; 
-  box-shadow: 0 0 5px #222; 
-  left: 50%; 
-  padding: 3px; 
-  position: fixed; 
-  top: 50%; 
-  z-index: 1001; 
-} 
-.large-image-close { 
-  background: transparent url("../img/popup-close-icon.png") no-repeat 0 0;
-  height: 32px; 
-  position: absolute; 
-  right: -16px; 
-  text-indent: -9999px; 
-  top: -16px; 
-  width: 32px; 
+.panel-heading {
+    background: #34495e !important; 
+    color: white !important;
+    font-weight: bold !important;
 }
 .verticalcenter {
   position: relative;
@@ -50,7 +23,6 @@ html {
 #wrapper {
     width: 100%;
 }
-
 #accountForm {
     width: 100%;
     float: left;
@@ -60,7 +32,6 @@ html {
     min-height: 568px;
     background-color: #fff;
 }
-
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
@@ -117,7 +88,7 @@ html {
   margin-top: 5px;
 }
 .navbar-static-top {
-    background-color: black;
+    background-color: #222;
 }
 .navbar-top-links {
     margin-right: 0;

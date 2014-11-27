@@ -5,7 +5,7 @@ include_once '../includes/functions.php';
 
 // startup session variables and check login
 sec_session_start();
-
+define("CHATUSER", $_SESSION['user']);
 if (!login_check($mysqli)) {
 	header('Location: /index.php');
 }
@@ -29,7 +29,6 @@ if (!login_check($mysqli)) {
 
     <!-- Custom CSS -->
     <link href="../css/sb-admin-2.css" rel="stylesheet">
-    <link type="text/css" href="/realtime-chat/src/pusher-chat-widget.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
     <link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -216,7 +215,7 @@ if (!login_check($mysqli)) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
+                            <a href="#" id="reportsnav"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/sales/vehiclesage.php">Vehicle Age Report</a>
@@ -273,7 +272,7 @@ if (!login_check($mysqli)) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#salesnav"><i class="fa fa-wrench fa-fw"></i> Sales<span class="fa arrow"></span></a>
+                            <a href="#" id="salesnav"><i class="fa fa-wrench fa-fw"></i> Sales<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/sales/addcustomer.php">Add Customer</a>

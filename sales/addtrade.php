@@ -153,7 +153,7 @@ if (!empty($_POST['VIN'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                                                        <div class="col-lg-12">
+                                    <div class="col-lg-12" style="padding-left: 30px; padding-right: 30px;">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Customer Information
@@ -220,7 +220,8 @@ if (!empty($_POST['VIN'])) {
         </div>
         <!-- /#page-wrapper -->
 <?php include_once("../includes/footer.php") ?>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
-<script type="text/javascript" src="../js/validate.js"></script>
+<script>
+$(document).ready(function() {
+document.getElementById('salesnav').click();
+});
+</script>

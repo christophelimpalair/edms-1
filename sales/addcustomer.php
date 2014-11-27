@@ -7,7 +7,6 @@ if (!empty($_POST['fname'])) {
     ('".$_POST['fname']."','".$_POST['lname']."','".$_POST['addr']."','".$_POST['city']."','".$_POST['state']."',".$_POST['zip'].",
     '".$_POST['email']."','".$_POST['phone']."','".$_SESSION['empid']."','".$_POST['notes']."')";
 
-echo $sql1;
     try {
         $query = "Select count(*) from customer where fname='".$_POST['fname']."' and lname='".$_POST['lname']."' and address='".$_POST['addr']."' and city='".$_POST['city']."'";
         $result = $conn->prepare($query); 
@@ -37,34 +36,8 @@ echo $sql1;
     }
 }
 ?>
+
 <!-- Page Content -->
-<style type="text/css">
-        .textareaContainer {
-            width: 600px;
-            border: 1px solid #999;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        textarea {
-            width: 100%;
-        }
-
-        .border-box {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -o-box-sizing: border-box;
-        }
-
-        .content-box {
-            box-sizing: content-box;
-            -moz-box-sizing: content-box;
-            -webkit-box-sizing: content-box;
-            -o-box-sizing: content-box;
-        }
-</style>
-
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -167,6 +140,8 @@ echo $sql1;
         <!-- /#page-wrapper -->
 
 <?php include_once("../includes/footer.php") ?>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
-<script type="text/javascript" src="../js/validate.js"></script>
+<script>
+$(document).ready(function() {
+document.getElementById('salesnav').click();
+});
+</script>

@@ -151,3 +151,8 @@ if (!empty($_POST['fname'])) {
         <!-- /#page-wrapper -->
 
 <?php include_once("../includes/footer.php") ?>
+<script>
+$(document).ready(function() {
+document.getElementById('salesnav').click();
+});
+</script>

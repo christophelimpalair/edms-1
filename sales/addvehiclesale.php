@@ -1,7 +1,19 @@
 <?php
 include_once("../includes/header.php");
 
+if (!empty($_POST['fname'])) {
 
+    try {
+        // build sql insert statement from posted values
+        $sql1 = "INSERT INTO Finance (employee_id, customer_id, vin, date, cost,) VALUES 
+        ('".$_POST['fname']."','".$_POST['lname']."','".$_POST['addr']."','".$_POST['city']."','".$_POST['state']."',".$_POST['zip'].",
+        '".$_POST['email']."','".$_POST['phone']."','".$_SESSION['empid']."','".$_POST['notes']."')";
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+}
 ?>
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -9,13 +21,15 @@ include_once("../includes/header.php");
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">New Vehicle Sale</h1>
-                    </div>            
+                    </div>     
+                    <div id="tabs">       
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#info-tab" data-toggle="tab">1. Select Customer <i class="fa"></i></a></li>
-                        <li><a href="#vehicle-tab" data-toggle="tab">2. Pick Vehicle <i class="fa"></i></a></li>
-                        <li><a href="#tradein-tab" data-toggle="tab">3. Add Trade In <i class="fa"></i></a></li>
-                        <li><a href="#approval-tab" data-toggle="tab">4. Create Deal <i class="fa"></i></a></li>
+                        <li class="active"><a href="#info-tab" id="tab" data-toggle="tab">1. Select Customer <i class="fa"></i></a></li>
+                        <li><a href="#vehicle-tab" id="tab" data-toggle="tab">2. Pick Vehicle <i class="fa"></i></a></li>
+                        <li><a href="#tradein-tab" id="tab" data-toggle="tab">3. Add Trade In <i class="fa"></i></a></li>
+                        <li><a href="#approval-tab" id="tab" data-toggle="tab">4. Create Deal <i class="fa"></i></a></li>
                     </ul>
+                    </div>
                     <form id="accountForm" method="post" class="form-horizontal">
                         <div class="tab-content">
                             <div class="tab-pane" id="info-tab" >
@@ -221,6 +235,7 @@ $(document).ready(function() {
     $('#dataTables2').dataTable();
 
     $('#info-tab').addClass('active');
+    document.getElementById('salesnav').click();
 });
 
 function okClicked () {

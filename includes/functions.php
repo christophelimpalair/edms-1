@@ -82,6 +82,7 @@ function login($email, $password, $mysqli) {
                     $_SESSION['role'] = $role;
                     $_SESSION['userid'] = $user_id;
                     $_SESSION['user'] = $name;
+                    $_SESSION['username'] = $name;
                     $_SESSION['empid'] = $empid;
                     return true;
                 } else {
